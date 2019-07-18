@@ -119,19 +119,30 @@ export default class Home extends Component {
             // 편지는 계속 비교
             matchComplete: true
           });
-          if (this.state.sendStatus) {
+          if (res.letterSendTime !== new Date().toString()) {
             this.setState({
-              partner: res.user.partner_nickname,
-              matchStatus: "편지 쓰기",
-              myname: res.user.nickname
+              sendStatus: true
             });
+            if (this.state.sendStatus) {
+              this.setState({
+                partner: res.user.partner_nickname,
+                matchStatus: "편지 쓰기",
+                myname: res.user.nickname
+              });
+            }
+          } else {
+            this.setState({
+              sendStatus: false
+            });
+            if (this.state.sendStatus) {
+              this.setState({
+                // 편지는 계속 비교
+                partner: res.user.partner_nickname,
+                matchStatus: "전송 완료",
+                myname: res.user.nickname
+              });
+            }
           }
-          this.setState({
-            // 편지는 계속 비교
-            partner: res.user.partner_nickname,
-            matchStatus: "전송 완료",
-            myname: res.user.nickname
-          });
         }
 
         if (res.letters && this.state.check === null) {
@@ -140,35 +151,11 @@ export default class Home extends Component {
             check: res.letters,
             arriveTime: res.letters[res.letters.length - 1].time
           });
-          if (
-            this.state.arriveTime.slice(23, 34) !==
-            new Date().toString().slice(4, 15)
-          ) {
-            this.setState({
-              sendStatus: true
-            });
-          } else {
-            this.setState({
-              sendStatus: false
-            });
-          }
         } else if (res.letters && this.state.check !== null) {
           this.setState({
             check: res.letters,
             arriveTime: res.letters[res.letters.length - 1].time
           });
-          if (
-            this.state.arriveTime.slice(23, 34) !==
-            new Date().toString().slice(4, 15)
-          ) {
-            this.setState({
-              sendStatus: true
-            });
-          } else {
-            this.setState({
-              sendStatus: false
-            });
-          }
         }
       })
       .catch(err => console.log(err));
@@ -199,46 +186,32 @@ export default class Home extends Component {
             }
           } else {
             this.setState({
-              matchComplete: true,
-              partner: res.user.partner_nickname,
-              matchStatus: "편지 쓰기",
-              myname: res.user.nickname
+              // 편지는 계속 비교
+              matchComplete: true
             });
-          }
-          if (res.letters && this.state.check === null) {
-            this.setState({
-              check: res.letters,
-              arriveTime: res.letters[res.letters.length - 1].time
-            });
-            if (
-              this.state.arriveTime.slice(23, 34) !==
-              new Date().toString().slice(4, 15)
-            ) {
+            if (res.letterSendTime !== new Date().toString()) {
               this.setState({
                 sendStatus: true
               });
+              if (this.state.sendStatus) {
+                this.setState({
+                  partner: res.user.partner_nickname,
+                  matchStatus: "편지 쓰기",
+                  myname: res.user.nickname
+                });
+              }
             } else {
               this.setState({
                 sendStatus: false
               });
-              console.log("run?");
-            }
-          } else if (res.letters && this.state.check !== null) {
-            this.setState({
-              check: res.letters,
-              arriveTime: res.letters[res.letters.length - 1].time
-            });
-            if (
-              this.state.arriveTime.slice(23, 34) !==
-              new Date().toString().slice(4, 15)
-            ) {
-              this.setState({
-                sendStatus: true
-              });
-            } else {
-              this.setState({
-                sendStatus: false
-              });
+              if (this.state.sendStatus) {
+                this.setState({
+                  // 편지는 계속 비교
+                  partner: res.user.partner_nickname,
+                  matchStatus: "전송 완료",
+                  myname: res.user.nickname
+                });
+              }
             }
           }
         })
@@ -247,7 +220,7 @@ export default class Home extends Component {
 
     let x = setInterval(() => {
       let aTime = new Date(
-        this.state.check[this.state.check.length - 1].time.slice(0, 16) //여기 슬라이스
+        this.state.check[this.state.check.length - 1].time //여기 슬라이스
       ).getTime();
       let currTime = new Date().getTime();
       let timerStart = aTime - currTime;
@@ -256,7 +229,7 @@ export default class Home extends Component {
         this.setState({
           postStatus: true
         });
-        let arrive = this.state.arriveTime.slice(0, 16); //여기 슬라이스
+        let arrive = this.state.arriveTime; //여기 슬라이스
         //console.log(times, "---", today, "---", arrive);
         var deadline = new Date(arrive).getTime();
         var now = new Date().getTime();

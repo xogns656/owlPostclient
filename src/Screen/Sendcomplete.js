@@ -64,7 +64,7 @@ export default class Sendcomplete extends Component {
     const changeString = val => {
       return val.toString().length === 1 ? "0" + val : val;
     };
-    let sendDate = new Date().toString();
+
     const now = new Date();
     now.setDate(now.getDate() + 1);
 
@@ -89,7 +89,7 @@ export default class Sendcomplete extends Component {
     const sendData = {};
     sendData.from = nickname;
     sendData.to = partner_nickname;
-    sendData.time = arriveDate + "   " + sendDate;
+    sendData.time = arriveDate;
     sendData.messages = this.state.messages;
 
     fetch(SERVER_API + `/check/letter-send`, {
