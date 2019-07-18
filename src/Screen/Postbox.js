@@ -79,10 +79,20 @@ export default class Postbox extends Component {
       .then(res => res.json())
       // .then(res => res.toData)
       .then(res => {
+        for (let i = 0; i < res.toData.length; i++) {
+          if (new Date(res.toData[i].time).getTime() > new Date().getTime()) {
+            delete res.toData[i];
+            this.setState({
+              letters: res
+            });
+          }
+          this.setState({
+            letters: res
+          });
+        }
+
         console.log(res);
-        this.setState({
-          letters: res
-        });
+
         console.log(res);
         console.log("여기 맞지???state ====>", this.state.letters);
       })
@@ -97,15 +107,20 @@ export default class Postbox extends Component {
         .then(res => res.json())
         // .then(res => res.toData)
         .then(res => {
-          console.log(res);
-          this.setState({
-            letters: res
-          });
-          console.log(res);
-          console.log("여기 맞지???state ====>", this.state.letters);
+          for (let i = 0; i < res.toData.length; i++) {
+            if (new Date(res.toData[i].time).getTime() > new Date().getTime()) {
+              delete res.toData[i];
+              this.setState({
+                letters: res
+              });
+            }
+            this.setState({
+              letters: res
+            });
+          }
         })
         .catch(err => console.log(err));
-    }, 50000);
+    }, 10000);
     // home 에서 props 로 편지도착상태알림이오면 실행으로 변경 예정
   }
 
@@ -142,9 +157,7 @@ export default class Postbox extends Component {
         </Header>
 
         {letters === null ? (
-          <Container>
-            <Spinner color="blue" />
-          </Container>
+          <Container />
         ) : (
           letters.toData.map((ele, idx) => (
             <List
