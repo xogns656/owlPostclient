@@ -8,7 +8,7 @@ import {
   Button
 } from "native-base";
 
-import { StyleSheet, TextInput, ScrollView } from "react-native";
+import { StyleSheet, TextInput, ScrollView, Alert } from "react-native";
 
 import AwesomeAlert from "react-native-awesome-alerts";
 
@@ -43,8 +43,15 @@ const styles = StyleSheet.create({
 export default class Send extends Component {
   constructor(props) {
     super(props);
-    this.state = { showAlert: false };
+    this.state = { showAlert: false, messages: null };
   }
+
+  storeMessage = e => {
+    const messages = e.nativeEvent.text;
+    this.setState({
+      messages: messages
+    });
+  };
 
   showAlert = () => {
     this.setState({
@@ -60,7 +67,7 @@ export default class Send extends Component {
 
   render() {
     const { navigation } = this.props;
-    const { showAlert } = this.state;
+    const { showAlert, messages } = this.state;
 
     return (
       <Container
@@ -78,6 +85,7 @@ export default class Send extends Component {
             maxLength={500}
             multiline={true}
             autoFocus={true}
+            onChange={this.storeMessage}
           />
         </ScrollView>
         <AwesomeAlert
@@ -96,7 +104,17 @@ export default class Send extends Component {
             this.hideAlert();
           }}
           onConfirmPressed={() => {
-            navigation.navigate("Sendcomplete");
+            messages !== null
+              ? navigation.navigate("Sendcomplete", { messages: messages })
+              : Alert.alert("", "편지의 내용이 없으면 보낼수가 없어요!", [
+                  {
+                    text: "ok",
+                    onPress: () =>
+                      this.setState({
+                        showAlert: false
+                      })
+                  }
+                ]);
             //, { sendletter: sendletter }
           }}
         />
