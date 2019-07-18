@@ -145,13 +145,13 @@ export default class Home extends Component {
           }
         }
 
-        if (res.letters && this.state.check === null) {
+        if (res.letters.length && this.state.check === null) {
           console.log(res);
           this.setState({
             check: res.letters,
             arriveTime: res.letters[res.letters.length - 1].time
           });
-        } else if (res.letters && this.state.check !== null) {
+        } else if (res.letters.length && this.state.check !== null) {
           this.setState({
             check: res.letters,
             arriveTime: res.letters[res.letters.length - 1].time
@@ -168,6 +168,7 @@ export default class Home extends Component {
       })
         .then(res => res.json())
         .then(res => {
+          console.log(res);
           if (res.user.partner_nickname === null) {
             this.setState({
               matchComplete: false,
