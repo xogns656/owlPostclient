@@ -85,7 +85,7 @@ export default class Sendcomplete extends Component {
 
     minute = changeString(minute);
     const arriveDate =
-      day + "/" + month + "/" + year + "   " + time + ":" + minute;
+      month + "/" + day + "/" + year + "   " + time + ":" + minute;
     const sendData = {};
     sendData.from = nickname;
     sendData.to = partner_nickname;
