@@ -186,7 +186,7 @@ export default class Home extends Component {
 
     let x = setInterval(() => {
       let aTime = new Date(
-        this.state.check[this.state.check.length - 1].time
+        this.state.check[this.state.check.length - 1].time //여기 슬라이스
       ).getTime();
       let currTime = new Date().getTime();
       let timerStart = aTime - currTime;
@@ -195,7 +195,7 @@ export default class Home extends Component {
         this.setState({
           postStatus: true
         });
-        let arrive = this.state.arriveTime;
+        let arrive = this.state.arriveTime; //여기 슬라이스
         //console.log(times, "---", today, "---", arrive);
         var deadline = new Date(arrive).getTime();
         var now = new Date().getTime();
@@ -232,7 +232,7 @@ export default class Home extends Component {
       postStatus,
       showAlert
     } = this.state;
-    const { sendDate } = this.props.navigation.state.params;
+
     const { navigation } = this.props;
 
     return (

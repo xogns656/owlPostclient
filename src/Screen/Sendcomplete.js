@@ -106,13 +106,7 @@ export default class Sendcomplete extends Component {
       })
       .then(json => {
         Alert.alert("", json, [
-          {
-            text: "확인",
-            onPress: () =>
-              navigation.navigate("Home", {
-                sendDate: new Date()
-              })
-          }
+          { text: "확인", onPress: () => navigation.navigate("Home") }
         ]);
       })
       .catch(err => console.log(err));
