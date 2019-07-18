@@ -4,6 +4,7 @@ import Postbox from "./Postbox";
 import Send from "./Send";
 import Mypage from "./Mypage";
 import SignIn from "./SignIn";
+import Signup from "./Signup";
 import AddBlackList from "./AddBlackList";
 import DeleteId from "./DeleteId";
 import Letter from "./Letter";
@@ -16,6 +17,7 @@ const HomeNavigation = createStackNavigator(
     Postbox: { screen: Postbox },
     Send: { screen: Send },
     SignIn: { screen: SignIn },
+    Signup: { screen: Signup },
     AddBlackList: { screen: AddBlackList },
     DeleteId: { screen: DeleteId },
     Letter: { screen: Letter },
