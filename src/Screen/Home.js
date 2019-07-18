@@ -72,7 +72,8 @@ export default class Home extends Component {
       // 여기에 도착예정 시간과 현재시간을 계산한 카운터 값이 들어가거나 , 편지도착알림 텍스트가 띄워진다.
       showAlert: false,
       // true 일 때 alert , 편지시간이 되면 true로 되고 date는 다시 null.
-      check: null
+      check: null,
+      sendStatus: true
     };
   }
 
@@ -116,75 +117,45 @@ export default class Home extends Component {
         } else {
           this.setState({
             // 편지는 계속 비교
-            matchComplete: true,
-            partner: res.user.partner_nickname,
-            matchStatus: "편지 쓰기",
-            myname: res.user.nickname
+            matchComplete: true
           });
+          if (res.letterSendTime !== new Date().toString()) {
+            this.setState({
+              sendStatus: true
+            });
+            if (this.state.sendStatus) {
+              this.setState({
+                partner: res.user.partner_nickname,
+                matchStatus: "편지 쓰기",
+                myname: res.user.nickname
+              });
+            }
+          } else {
+            this.setState({
+              sendStatus: false
+            });
+            if (this.state.sendStatus) {
+              this.setState({
+                // 편지는 계속 비교
+                partner: res.user.partner_nickname,
+                matchStatus: "전송 완료",
+                myname: res.user.nickname
+              });
+            }
+          }
         }
 
         if (res.letters && this.state.check === null) {
+          console.log(res);
           this.setState({
             check: res.letters,
             arriveTime: res.letters[res.letters.length - 1].time
           });
         } else if (res.letters && this.state.check !== null) {
-          // let aTime = new Date(
-          //   res.letters[res.letters.length - 1].time
-          // ).getTime();
-          // let currTime = new Date().getTime();
-          // let timerStart = aTime - currTime;
-          // console.log("1111", aTime);
-          // console.log("2", currTime);
-          // console.log("3", timerStart);
-          // if (timerStart > 0) {
           this.setState({
-            //postStatus: true,
             check: res.letters,
             arriveTime: res.letters[res.letters.length - 1].time
           });
-          // if (this.state.postStatus) {
-          //   // 여기도 fench 써서 아예 받아올 예정.
-          //   let arrive = this.state.arriveTime;
-          //   //console.log(times, "---", today, "---", arrive);
-          //   var deadline = new Date(arrive).getTime();
-          //   var now = new Date().getTime();
-          //   let t = deadline - now;
-          //   let days = Math.floor(t / (1000 * 60 * 60 * 24));
-          //   let hours = Math.floor(
-          //     (t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-          //   );
-          //   let minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
-
-          //   let x = setInterval(() => {
-          //     if (t <= 0) {
-          //       clearInterval(x);
-          //       this.setState({
-          //         date: null,
-          //         postStatus: false
-          //       });
-          //       this.setState({
-          //         showAlert: true
-          //       });
-          //     } else {
-          //       this.setState({
-          //         date:
-          //           "편지 도착까지, " +
-          //           days +
-          //           "일 " +
-          //           hours +
-          //           "시간 " +
-          //           minutes +
-          //           "분"
-          //       });
-          //     }
-          //   }, 60000);
-          //   console.log("Timer why????", arriveTime);
-          // }
-
-          // if (
-          //   !this.state.check.includes(res.letters[res.letters.length - 1])
-          // ) {
         }
       })
       .catch(err => console.log(err));
@@ -197,10 +168,6 @@ export default class Home extends Component {
       })
         .then(res => res.json())
         .then(res => {
-          //console.log("!!!!!!!!!", res);
-          //console.log("precheck", this.state.check);
-          //console.log(this.state / arriveTime);
-
           if (res.user.partner_nickname === null) {
             this.setState({
               matchComplete: false,
@@ -219,22 +186,33 @@ export default class Home extends Component {
             }
           } else {
             this.setState({
-              matchComplete: true,
-              partner: res.user.partner_nickname,
-              matchStatus: "편지 쓰기",
-              myname: res.user.nickname
+              // 편지는 계속 비교
+              matchComplete: true
             });
-          }
-          if (res.letters && this.state.check === null) {
-            this.setState({
-              check: res.letters,
-              arriveTime: res.letters[res.letters.length - 1].time
-            });
-          } else if (res.letters && this.state.check !== null) {
-            this.setState({
-              check: res.letters,
-              arriveTime: res.letters[res.letters.length - 1].time
-            });
+            if (res.letterSendTime !== new Date().toString()) {
+              this.setState({
+                sendStatus: true
+              });
+              if (this.state.sendStatus) {
+                this.setState({
+                  partner: res.user.partner_nickname,
+                  matchStatus: "편지 쓰기",
+                  myname: res.user.nickname
+                });
+              }
+            } else {
+              this.setState({
+                sendStatus: false
+              });
+              if (this.state.sendStatus) {
+                this.setState({
+                  // 편지는 계속 비교
+                  partner: res.user.partner_nickname,
+                  matchStatus: "전송 완료",
+                  myname: res.user.nickname
+                });
+              }
+            }
           }
         })
         .catch(err => console.log(err));
@@ -242,7 +220,7 @@ export default class Home extends Component {
 
     let x = setInterval(() => {
       let aTime = new Date(
-        this.state.check[this.state.check.length - 1].time
+        this.state.check[this.state.check.length - 1].time //여기 슬라이스
       ).getTime();
       let currTime = new Date().getTime();
       let timerStart = aTime - currTime;
@@ -251,7 +229,7 @@ export default class Home extends Component {
         this.setState({
           postStatus: true
         });
-        let arrive = this.state.arriveTime;
+        let arrive = this.state.arriveTime; //여기 슬라이스
         //console.log(times, "---", today, "---", arrive);
         var deadline = new Date(arrive).getTime();
         var now = new Date().getTime();
@@ -275,31 +253,7 @@ export default class Home extends Component {
         });
       }
     }, 1000);
-    // console.log(
-    //   "Timer why????",
-    //   this.state.arriveTime,
-    //   "---",
-    //   this.state.postStatus
-    // );
-
-    // 처음에 한 번 띄워주고 하는 법을 생각해보자 ㅠ_ㅠ
   }
-
-  // fetch(Letter)
-  //     .then(res => res.json())
-  //     .then(res => {
-  //       if(편지창에 변화가 있다면?---> 이 조건을 어케하지??){
-  //         this.setState({
-  //           postStatus : true
-  //         });
-  //       }
-  //       this.setState({
-  //         postStatus : false
-  //       });
-  //     });
-  // 알럿트를 보고 편지함을 들어가면! if (t <= 0)
-
-  // 상대방이 있고 상대방 편지가 출발했을 때
 
   render() {
     const {
@@ -394,10 +348,12 @@ export default class Home extends Component {
                     })
                     .catch(err => console.log(err));
                 } else {
-                  navigation.navigate("Send", {
-                    nickname: this.state.myname,
-                    partner_nickname: this.state.partner
-                  });
+                  if (matchStatus === "편지 쓰기") {
+                    navigation.navigate("Send", {
+                      nickname: this.state.myname,
+                      partner_nickname: this.state.partner
+                    });
+                  }
                 }
               }}
             >
