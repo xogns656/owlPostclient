@@ -72,7 +72,8 @@ export default class Home extends Component {
       // 여기에 도착예정 시간과 현재시간을 계산한 카운터 값이 들어가거나 , 편지도착알림 텍스트가 띄워진다.
       showAlert: false,
       // true 일 때 alert , 편지시간이 되면 true로 되고 date는 다시 null.
-      check: null
+      check: null,
+      sendStatus: true
     };
   }
 
@@ -116,23 +117,58 @@ export default class Home extends Component {
         } else {
           this.setState({
             // 편지는 계속 비교
-            matchComplete: true,
+            matchComplete: true
+          });
+          if (this.state.sendStatus) {
+            this.setState({
+              partner: res.user.partner_nickname,
+              matchStatus: "편지 쓰기",
+              myname: res.user.nickname
+            });
+          }
+          this.setState({
+            // 편지는 계속 비교
             partner: res.user.partner_nickname,
-            matchStatus: "편지 쓰기",
+            matchStatus: "전송 완료",
             myname: res.user.nickname
           });
         }
 
         if (res.letters && this.state.check === null) {
+          console.log(res);
           this.setState({
             check: res.letters,
             arriveTime: res.letters[res.letters.length - 1].time
           });
+          if (
+            this.state.arriveTime.slice(23, 34) !==
+            new Date().toString().slice(4, 15)
+          ) {
+            this.setState({
+              sendStatus: true
+            });
+          } else {
+            this.setState({
+              sendStatus: false
+            });
+          }
         } else if (res.letters && this.state.check !== null) {
           this.setState({
             check: res.letters,
             arriveTime: res.letters[res.letters.length - 1].time
           });
+          if (
+            this.state.arriveTime.slice(23, 34) !==
+            new Date().toString().slice(4, 15)
+          ) {
+            this.setState({
+              sendStatus: true
+            });
+          } else {
+            this.setState({
+              sendStatus: false
+            });
+          }
         }
       })
       .catch(err => console.log(err));
@@ -174,11 +210,36 @@ export default class Home extends Component {
               check: res.letters,
               arriveTime: res.letters[res.letters.length - 1].time
             });
+            if (
+              this.state.arriveTime.slice(23, 34) !==
+              new Date().toString().slice(4, 15)
+            ) {
+              this.setState({
+                sendStatus: true
+              });
+            } else {
+              this.setState({
+                sendStatus: false
+              });
+              console.log("run?");
+            }
           } else if (res.letters && this.state.check !== null) {
             this.setState({
               check: res.letters,
               arriveTime: res.letters[res.letters.length - 1].time
             });
+            if (
+              this.state.arriveTime.slice(23, 34) !==
+              new Date().toString().slice(4, 15)
+            ) {
+              this.setState({
+                sendStatus: true
+              });
+            } else {
+              this.setState({
+                sendStatus: false
+              });
+            }
           }
         })
         .catch(err => console.log(err));
@@ -186,7 +247,7 @@ export default class Home extends Component {
 
     let x = setInterval(() => {
       let aTime = new Date(
-        this.state.check[this.state.check.length - 1].time //여기 슬라이스
+        this.state.check[this.state.check.length - 1].time.slice(0, 16) //여기 슬라이스
       ).getTime();
       let currTime = new Date().getTime();
       let timerStart = aTime - currTime;
@@ -195,7 +256,7 @@ export default class Home extends Component {
         this.setState({
           postStatus: true
         });
-        let arrive = this.state.arriveTime; //여기 슬라이스
+        let arrive = this.state.arriveTime.slice(0, 16); //여기 슬라이스
         //console.log(times, "---", today, "---", arrive);
         var deadline = new Date(arrive).getTime();
         var now = new Date().getTime();
@@ -314,10 +375,12 @@ export default class Home extends Component {
                     })
                     .catch(err => console.log(err));
                 } else {
-                  navigation.navigate("Send", {
-                    nickname: this.state.myname,
-                    partner_nickname: this.state.partner
-                  });
+                  if (matchStatus === "편지 쓰기") {
+                    navigation.navigate("Send", {
+                      nickname: this.state.myname,
+                      partner_nickname: this.state.partner
+                    });
+                  }
                 }
               }}
             >
