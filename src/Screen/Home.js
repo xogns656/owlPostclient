@@ -219,9 +219,9 @@ export default class Home extends Component {
     }, 2000);
 
     let x = setInterval(() => {
-      if (this.state.check.length) {
+      if (this.state.arriveTime) {
         let aTime = new Date(
-          this.state.check[this.state.check.length - 1].time //여기 슬라이스
+          this.state.arriveTime.time //여기 슬라이스
         ).getTime();
         let currTime = new Date().getTime();
         let timerStart = aTime - currTime;
