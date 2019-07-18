@@ -282,7 +282,8 @@ export default class Signup extends Component {
       sex: this.state.stateSex,
       select: this.state.statePartner,
       blackList: [],
-      partner_nickname: null
+      partner_nickname: null,
+      letterSendtime: null
     };
     const status = [
       statusEmail,
@@ -348,7 +349,7 @@ export default class Signup extends Component {
     //패스워드가 매칭여부에 따라 메시지 변화
     let matchMsg;
     let passwordMatch;
-    console.log(this.state.statePassword, this.state.stateComparePassword);
+    //console.log(this.state.statePassword, this.state.stateComparePassword);
     if (!this.state.statePassword || !this.state.stateComparePassword) {
       matchMsg = "";
     } else if (this.state.statePassword === this.state.stateComparePassword) {
