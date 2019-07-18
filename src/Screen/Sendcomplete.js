@@ -95,9 +95,14 @@ export default class Sendcomplete extends Component {
     fetch(SERVER_API + `/check/letter-send`, {
       method: "POST",
       body: JSON.stringify(sendData),
-      headers: { "Content-Type": "application/json", "x-access-token": token }
+      headers: {
+        "Content-Type": "application/json",
+        "x-access-token": token,
+        currtime: new Date().toString().slice(4, 15)
+      }
     })
       .then(res => {
+        console.log(res);
         if (res.status === 201) {
           return res.json();
         } else if (res.statue === 400) {
