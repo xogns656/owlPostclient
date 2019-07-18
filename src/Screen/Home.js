@@ -146,7 +146,7 @@ export default class Home extends Component {
         }
 
         if (res.letters.length && this.state.check === null) {
-          console.log(res);
+          //   console.log(res);
           this.setState({
             check: res.letters,
             arriveTime: res.letters[res.letters.length - 1].time
@@ -168,7 +168,7 @@ export default class Home extends Component {
       })
         .then(res => res.json())
         .then(res => {
-          console.log(res);
+          //   console.log(res);
           if (res.user.partner_nickname === null) {
             this.setState({
               matchComplete: false,
@@ -221,9 +221,8 @@ export default class Home extends Component {
 
     let x = setInterval(() => {
       if (this.state.arriveTime) {
-        let aTime = new Date(
-          this.state.arriveTime.time //여기 슬라이스
-        ).getTime();
+        //console.log(this.state.arriveTime);
+        let aTime = new Date(this.state.arriveTime).getTime();
         let currTime = new Date().getTime();
         let timerStart = aTime - currTime;
 
