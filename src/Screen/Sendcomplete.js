@@ -17,7 +17,8 @@ import {
   Content
 } from "native-base";
 import NumericInput from "react-native-numeric-input";
-import { StyleSheet, Alert } from "react-native";
+import { StyleSheet, Alert, AsyncStorage } from "react-native";
+import { SERVER_API } from "../api/API";
 
 const styles = StyleSheet.create({
   toplogo: {
@@ -54,13 +55,16 @@ export default class Sendcomplete extends Component {
     });
   };
 
-  sendLetter = () => {
+  sendLetter = async () => {
+    let { time, minute, meridiem } = this.state;
     const { nickname, partner_nickname } = this.props.navigation.state.params;
-    console.log(nickname, partner_nickname);
+    const { navigation } = this.props;
+    //console.log(nickname, partner_nickname);
+    const token = await AsyncStorage.getItem("token");
     const changeString = val => {
       return val.toString().length === 1 ? "0" + val : val;
     };
-    let { time, minute } = this.state;
+
     const now = new Date();
     now.setDate(now.getDate() + 1);
 
@@ -77,9 +81,34 @@ export default class Sendcomplete extends Component {
     day = changeString(day);
 
     time = changeString(time);
+    meridiem === "AM" ? (time = time) : (time = Number(time) + 12);
+
     minute = changeString(minute);
-    const sendDate =
+    const arriveDate =
       day + "/" + month + "/" + year + "   " + time + ":" + minute;
+    const sendData = {};
+    sendData.from = nickname;
+    sendData.to = partner_nickname;
+    sendData.time = arriveDate;
+    sendData.messages = this.state.messages;
+
+    fetch(SERVER_API + `/check/letter-send`, {
+      method: "POST",
+      body: JSON.stringify(sendData),
+      headers: { "Content-Type": "application/json", "x-access-token": token }
+    })
+      .then(res => {
+        if (res.status === 201) {
+          return res.json();
+        } else if (res.statue === 400) {
+          return;
+        }
+      })
+      .then(json => {
+        Alert.alert("", json, [
+          { text: "확인", onPress: () => navigation.navigate("Home") }
+        ]);
+      });
   };
   render() {
     const { hideAlert } = this.props.navigation.state.params;
@@ -133,7 +162,15 @@ export default class Sendcomplete extends Component {
         </Content>
         <Footer>
           <FooterTab>
-            <Button style={styles.footer} onPress={this.sendLetter}>
+            <Button
+              style={styles.footer}
+              onPress={() => {
+                Alert.alert("", "부엉이를 보내시겠어요?", [
+                  { text: "네", onPress: this.sendLetter },
+                  { text: "아니오" }
+                ]);
+              }}
+            >
               <Text>SEND</Text>
             </Button>
           </FooterTab>
