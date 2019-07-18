@@ -107,7 +107,9 @@ export default class Send extends Component {
             messages !== null
               ? navigation.navigate("Sendcomplete", {
                   messages: messages,
-                  hideAlert: this.hideAlert
+                  hideAlert: this.hideAlert,
+                  nickname : this.props.navigation.state.params.nickname,
+                  partner_nickname = this.props.navigation.state.params.partner_nickname
                 })
               : Alert.alert("", "편지의 내용이 없으면 보낼수가 없어요!", [
                   {

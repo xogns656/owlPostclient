@@ -55,7 +55,8 @@ export default class Sendcomplete extends Component {
   };
 
   sendLetter = () => {
-    //const {nickname,partner_nickname} = this.props.navigation.state.params
+    const { nickname, partner_nickname } = this.props.navigation.state.params;
+    console.log(nickname, partner_nickname);
     const changeString = val => {
       return val.toString().length === 1 ? "0" + val : val;
     };
