@@ -119,7 +119,7 @@ export default class Home extends Component {
             // 편지는 계속 비교
             matchComplete: true
           });
-          if (res.letterSendTime !== new Date().toString()) {
+          if (res.letterSendTime !== new Date().toString().slice(4, 15)) {
             this.setState({
               sendStatus: true
             });
@@ -189,7 +189,7 @@ export default class Home extends Component {
               // 편지는 계속 비교
               matchComplete: true
             });
-            if (res.letterSendTime !== new Date().toString()) {
+            if (res.letterSendTime !== new Date().toString().slice(4, 15)) {
               this.setState({
                 sendStatus: true
               });
