@@ -219,38 +219,48 @@ export default class Home extends Component {
     }, 2000);
 
     let x = setInterval(() => {
-      let aTime = new Date(
-        this.state.check[this.state.check.length - 1].time //여기 슬라이스
-      ).getTime();
-      let currTime = new Date().getTime();
-      let timerStart = aTime - currTime;
+      if (this.state.check.length) {
+        let aTime = new Date(
+          this.state.check[this.state.check.length - 1].time //여기 슬라이스
+        ).getTime();
+        let currTime = new Date().getTime();
+        let timerStart = aTime - currTime;
 
-      if (timerStart > 0) {
-        this.setState({
-          postStatus: true
-        });
-        let arrive = this.state.arriveTime; //여기 슬라이스
-        //console.log(times, "---", today, "---", arrive);
-        var deadline = new Date(arrive).getTime();
-        var now = new Date().getTime();
-        let t = deadline - now;
-        let days = Math.floor(t / (1000 * 60 * 60 * 24));
-        let hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        let minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+        if (timerStart > 0) {
+          this.setState({
+            postStatus: true
+          });
+          let arrive = this.state.arriveTime; //여기 슬라이스
+          //console.log(times, "---", today, "---", arrive);
+          var deadline = new Date(arrive).getTime();
+          var now = new Date().getTime();
+          let t = deadline - now;
+          let days = Math.floor(t / (1000 * 60 * 60 * 24));
+          let hours = Math.floor(
+            (t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+          );
+          let minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
 
-        this.setState({
-          date:
-            "편지 도착까지, " + days + "일 " + hours + "시간 " + minutes + "분"
-        });
-      } else if (this.state.postStatus && timerStart <= 0) {
-        clearInterval(x);
-        this.setState({
-          date: null,
-          postStatus: false
-        });
-        this.setState({
-          showAlert: true
-        });
+          this.setState({
+            date:
+              "편지 도착까지, " +
+              days +
+              "일 " +
+              hours +
+              "시간 " +
+              minutes +
+              "분"
+          });
+        } else if (this.state.postStatus && timerStart <= 0) {
+          clearInterval(x);
+          this.setState({
+            date: null,
+            postStatus: false
+          });
+          this.setState({
+            showAlert: true
+          });
+        }
       }
     }, 1000);
   }
