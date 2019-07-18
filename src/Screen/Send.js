@@ -105,7 +105,10 @@ export default class Send extends Component {
           }}
           onConfirmPressed={() => {
             messages !== null
-              ? navigation.navigate("Sendcomplete", { messages: messages })
+              ? navigation.navigate("Sendcomplete", {
+                  messages: messages,
+                  hideAlert: this.hideAlert
+                })
               : Alert.alert("", "편지의 내용이 없으면 보낼수가 없어요!", [
                   {
                     text: "ok",
