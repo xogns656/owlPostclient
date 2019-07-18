@@ -119,7 +119,8 @@ export default class Home extends Component {
             // 편지는 계속 비교
             matchComplete: true
           });
-          if (res.letterSendTime !== new Date().toString().slice(4, 15)) {
+          if (res.user.letterSendtime !== new Date().toString().slice(4, 15)) {
+            //console.log("니가 뛰냐??");
             this.setState({
               sendStatus: true
             });
@@ -146,7 +147,7 @@ export default class Home extends Component {
         }
 
         if (res.letters.length && this.state.check === null) {
-          console.log(res);
+          //   console.log(res);
           this.setState({
             check: res.letters,
             arriveTime: res.letters[res.letters.length - 1].time
@@ -168,7 +169,12 @@ export default class Home extends Component {
       })
         .then(res => res.json())
         .then(res => {
-          console.log(res);
+          console.log(
+            res.user.letterSendtime,
+            "!=!",
+            new Date().toString().slice(4, 15)
+          );
+          //   console.log(res);
           if (res.user.partner_nickname === null) {
             this.setState({
               matchComplete: false,
@@ -190,11 +196,15 @@ export default class Home extends Component {
               // 편지는 계속 비교
               matchComplete: true
             });
-            if (res.letterSendTime !== new Date().toString().slice(4, 15)) {
+            console.log(this.state.matchComplete, "--", this.state.sendStatus);
+            if (
+              res.user.letterSendtime !== new Date().toString().slice(4, 15)
+            ) {
               this.setState({
                 sendStatus: true
               });
               if (this.state.sendStatus) {
+                //console.log("니가 뛰냐??");
                 this.setState({
                   partner: res.user.partner_nickname,
                   matchStatus: "편지 쓰기",
@@ -205,7 +215,8 @@ export default class Home extends Component {
               this.setState({
                 sendStatus: false
               });
-              if (this.state.sendStatus) {
+              if (!this.state.sendStatus) {
+                //console.log("아니아니아니면 니가 뛰냐??");
                 this.setState({
                   // 편지는 계속 비교
                   partner: res.user.partner_nickname,
@@ -215,15 +226,15 @@ export default class Home extends Component {
               }
             }
           }
+          //console.log("!@!@!@", this.state);
         })
         .catch(err => console.log(err));
     }, 2000);
 
     let x = setInterval(() => {
       if (this.state.arriveTime) {
-        let aTime = new Date(
-          this.state.arriveTime.time //여기 슬라이스
-        ).getTime();
+        //console.log(this.state.arriveTime);
+        let aTime = new Date(this.state.arriveTime).getTime();
         let currTime = new Date().getTime();
         let timerStart = aTime - currTime;
 
