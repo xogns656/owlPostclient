@@ -108,7 +108,8 @@ export default class Sendcomplete extends Component {
         Alert.alert("", json, [
           { text: "확인", onPress: () => navigation.navigate("Home") }
         ]);
-      });
+      })
+      .catch(err => console.log(err));
   };
   render() {
     const { hideAlert } = this.props.navigation.state.params;
