@@ -68,7 +68,8 @@ export default class Send extends Component {
   render() {
     const { navigation } = this.props;
     const { showAlert, messages } = this.state;
-
+    const { nickname, partner_nickname } = this.props.navigation.state.params;
+    //console.log(nickname, partner_nickname);
     return (
       <Container
       // 닉네임에 get 요청 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
@@ -76,7 +77,7 @@ export default class Send extends Component {
         <Header style={styles.toplogo}>
           <Text style={styles.logotext}>owlPost</Text>
         </Header>
-        <Text style={styles.toptext}>To. 'NickName'</Text>
+        <Text style={styles.toptext}>To. {partner_nickname}</Text>
 
         <ScrollView>
           <TextInput
@@ -107,7 +108,9 @@ export default class Send extends Component {
             messages !== null
               ? navigation.navigate("Sendcomplete", {
                   messages: messages,
-                  hideAlert: this.hideAlert
+                  hideAlert: this.hideAlert,
+                  nickname: nickname,
+                  partner_nickname: partner_nickname
                 })
               : Alert.alert("", "편지의 내용이 없으면 보낼수가 없어요!", [
                   {
@@ -118,7 +121,6 @@ export default class Send extends Component {
                       })
                   }
                 ]);
-            //, { sendletter: sendletter }
           }}
         />
 
@@ -146,13 +148,3 @@ export default class Send extends Component {
     );
   }
 }
-//var d = new Date("2019-02-28")
-//console.log(d)
-// Wed Feb 29 2012 11:00:00 GMT+1100 (EST)
-
-//d.setDate(d.getDate() + 1)
-//console.log(d)
-
-// Thu Mar 01 2012 11:00:00 GMT+1100 (EST)
-
-//07/15/19

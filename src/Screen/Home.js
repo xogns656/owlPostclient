@@ -95,8 +95,8 @@ export default class Home extends Component {
     })
       .then(res => res.json())
       .then(res => {
-        console.log("!!!!!!!!!", res);
-        console.log("precheck", this.state.check);
+        //console.log("!!!!!!!!!", res);
+        //console.log("precheck", this.state.check);
         if (res.user.partner_nickname === null) {
           this.setState({
             matchComplete: false,
@@ -197,8 +197,8 @@ export default class Home extends Component {
       })
         .then(res => res.json())
         .then(res => {
-          console.log("!!!!!!!!!", res);
-          console.log("precheck", this.state.check);
+          //console.log("!!!!!!!!!", res);
+          //console.log("precheck", this.state.check);
           //console.log(this.state / arriveTime);
 
           if (res.user.partner_nickname === null) {
@@ -390,13 +390,13 @@ export default class Home extends Component {
                     }
                   )
                     .then(res => {
-                      console.log("x", res, this.state.token);
+                      //console.log("x", res, this.state.token);
                     })
                     .catch(err => console.log(err));
                 } else {
                   navigation.navigate("Send", {
                     nickname: this.state.myname,
-                    partner_nickname: this.state.partner_nickname
+                    partner_nickname: this.state.partner
                   });
                 }
               }}
