@@ -280,7 +280,7 @@ export default class Home extends Component {
           });
         }
       }
-    }, 1000);
+    }, 2000);
   }
 
   render() {
