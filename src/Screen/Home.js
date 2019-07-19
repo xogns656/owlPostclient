@@ -85,10 +85,8 @@ export default class Home extends Component {
 
   async componentDidMount() {
     let AllUserInfo = `${SERVER_API}/check/home`;
-    const token = await AsyncStorage.getItem("token");
-    this.setState({
-      token: token
-    });
+    let token = await AsyncStorage.getItem("token");
+
     fetch(AllUserInfo, {
       headers: {
         "x-access-token": token
@@ -160,7 +158,7 @@ export default class Home extends Component {
         }
       })
       .catch(err => console.log(err));
-
+    console.log("token이 바뀌니??", token);
     setInterval(() => {
       fetch(AllUserInfo, {
         headers: {
@@ -353,7 +351,9 @@ export default class Home extends Component {
             </Button>
             <Button
               style={styles.footer}
-              onPress={() => {
+              onPress={async () => {
+                let token = await AsyncStorage.getItem("token");
+
                 if (matchComplete === false) {
                   this.setState({
                     centerText: "FIND FRIEND!",
@@ -367,12 +367,12 @@ export default class Home extends Component {
                         // ---------------> ㅁㅐ칭요청
                         method: "POST",
                         headers: {
-                          "x-access-token": this.state.token
+                          "x-access-token": token
                         }
                       }
                     )
                       .then(res => {
-                        console.log("res->", res, "token->", this.state.token);
+                        console.log(res);
                       })
                       .catch(err => console.log(err));
                   }, 10000);
