@@ -76,7 +76,7 @@ export default class AddBlackList extends Component {
                 }
               })
               .then(json => {
-                console.log(json);
+                //console.log(json);
                 Alert.alert("", json, [
                   {
                     text: "확인",

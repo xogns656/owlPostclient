@@ -6,12 +6,7 @@ import {
   Footer,
   FooterTab,
   Button,
-  List,
-  ListItem,
-  Left,
   Body,
-  Right,
-  Thumbnail,
   Icon,
   Picker,
   Content
@@ -86,6 +81,7 @@ export default class Sendcomplete extends Component {
     minute = changeString(minute);
     const arriveDate =
       month + "/" + day + "/" + year + "   " + time + ":" + minute;
+
     const sendData = {};
     sendData.from = nickname;
     sendData.to = partner_nickname;
@@ -102,7 +98,7 @@ export default class Sendcomplete extends Component {
       }
     })
       .then(res => {
-        console.log(res);
+        //console.log(res);
         if (res.status === 201) {
           return res.json();
         } else if (res.statue === 400) {
@@ -138,7 +134,7 @@ export default class Sendcomplete extends Component {
         </Header>
 
         <Text>부엉이의 도착시간을 정해주세요</Text>
-
+        <Body />
         <Picker
           notemode="dropdown"
           selectedValue={this.state.meridiem}

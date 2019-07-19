@@ -10,8 +10,7 @@ import {
   Right,
   Footer,
   FooterTab,
-  Icon,
-  Toast
+  Icon
 } from "native-base";
 import { StyleSheet, Alert, AsyncStorage } from "react-native";
 import React, { Component } from "react";
@@ -62,21 +61,21 @@ export default class AddBlackList extends Component {
           text: "ok",
           onPress: async () => {
             const token = await AsyncStorage.getItem("token");
-            console.log(SERVER_API);
-            console.log(token);
+            //console.log(SERVER_API);
+            //console.log(token);
             fetch(SERVER_API + "/check/withdrawal", {
               method: "DELETE",
-              headers: {
-                "x-access-token": token
-              }
+              headers: { "x-access-token": token }
             })
               .then(res => {
+                console.log(res);
                 if (res.status === 200) {
                   return res.json();
                 }
               })
-              .then(json => {
-                AsyncStorage.clear();
+              .then(async json => {
+                console.log(json);
+                await AsyncStorage.clear();
                 Alert.alert("", json, [
                   {
                     text: "확인",
