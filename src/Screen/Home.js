@@ -169,11 +169,6 @@ export default class Home extends Component {
       })
         .then(res => res.json())
         .then(res => {
-          console.log(
-            res.user.letterSendtime,
-            "!=!",
-            new Date().toString().slice(4, 15)
-          );
           //   console.log(res);
           if (res.user.partner_nickname === null) {
             this.setState({
@@ -196,7 +191,6 @@ export default class Home extends Component {
               // 편지는 계속 비교
               matchComplete: true
             });
-            console.log(this.state.matchComplete, "--", this.state.sendStatus);
             if (
               res.user.letterSendtime !== new Date().toString().slice(4, 15)
             ) {
@@ -225,6 +219,18 @@ export default class Home extends Component {
                 });
               }
             }
+          }
+          if (res.letters.length && this.state.check === null) {
+            //   console.log(res);
+            this.setState({
+              check: res.letters,
+              arriveTime: res.letters[res.letters.length - 1].time
+            });
+          } else if (res.letters.length && this.state.check !== null) {
+            this.setState({
+              check: res.letters,
+              arriveTime: res.letters[res.letters.length - 1].time
+            });
           }
           //console.log("!@!@!@", this.state);
         })
@@ -274,7 +280,7 @@ export default class Home extends Component {
           });
         }
       }
-    }, 1000);
+    }, 2000);
   }
 
   render() {
@@ -354,21 +360,22 @@ export default class Home extends Component {
                     subText: "펜팔친구를 찾고 있어요!",
                     matchStatus: "매칭 중"
                   });
-
-                  fetch(
-                    `${SERVER_API}/check/match?nickname=${this.state.myname}`,
-                    {
-                      // ---------------> ㅁㅐ칭요청
-                      method: "POST",
-                      headers: {
-                        "x-access-token": this.state.token
+                  setInterval(() => {
+                    fetch(
+                      `${SERVER_API}/check/match?nickname=${this.state.myname}`,
+                      {
+                        // ---------------> ㅁㅐ칭요청
+                        method: "POST",
+                        headers: {
+                          "x-access-token": this.state.token
+                        }
                       }
-                    }
-                  )
-                    .then(res => {
-                      //console.log("x", res, this.state.token);
-                    })
-                    .catch(err => console.log(err));
+                    )
+                      .then(res => {
+                        console.log("res->", res, "token->", this.state.token);
+                      })
+                      .catch(err => console.log(err));
+                  }, 10000);
                 } else {
                   if (matchStatus === "편지 쓰기") {
                     navigation.navigate("Send", {
