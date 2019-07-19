@@ -30,6 +30,48 @@ const styles = StyleSheet.create({
   },
   footer: {
     backgroundColor: "black"
+  },
+  btntext: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 14
+  },
+  backbtntext: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 30
+  },
+  backbtn: {
+    backgroundColor: "black",
+    position: "absolute",
+    left: 0,
+    paddingTop: 0,
+    marginTop: 0
+  },
+
+  maintext: {
+    fontSize: 25,
+    fontWeight: "800",
+    textAlign: "center",
+    marginTop: "50%"
+  },
+  subtext: {
+    marginTop: "3%",
+    textAlign: "center",
+    fontSize: 20
+  },
+  times: {
+    flex: 1,
+    flexDirection: "row",
+    margin: "5%"
+  },
+  hour: {
+    position: "absolute",
+    left: 10
+  },
+  minute: {
+    position: "absolute",
+    right: 10
   }
 });
 
@@ -122,46 +164,55 @@ export default class Sendcomplete extends Component {
     return (
       <Container>
         <Header style={styles.toplogo}>
-          <Icon
-            style={{ color: "white" }}
-            name="arrow-back"
+          <Button
+            style={styles.backbtn}
             onPress={() => {
               hideAlert();
               navigation.goBack();
             }}
-          />
+          >
+            <Text style={styles.backbtntext}>←</Text>
+          </Button>
+
           <Text style={styles.logotext}>owlPost</Text>
         </Header>
 
-        <Text>부엉이의 도착시간을 정해주세요</Text>
-        <Body />
-        <Picker
-          notemode="dropdown"
-          selectedValue={this.state.meridiem}
-          onValueChange={this.meridiemSelect}
-        >
-          {elMeridiem.map((curr, index) => (
-            <Picker.Item key={curr.charCodeAt} label={curr} value={curr} />
-          ))}
-        </Picker>
-        <Content>
+        <Text style={styles.maintext}>부엉이의 도착시간을 정해주세요</Text>
+
+        <Container style={styles.times}>
+          <Picker
+            style={styles.picker}
+            notemode="dropdown"
+            selectedValue={this.state.meridiem}
+            onValueChange={this.meridiemSelect}
+          >
+            {elMeridiem.map((curr, index) => (
+              <Picker.Item key={curr.charCodeAt} label={curr} value={curr} />
+            ))}
+          </Picker>
+
           <NumericInput
+            style={styles.hour}
             type="up-down"
             onChange={timeChange => this.setState({ time: timeChange })}
             minValue={0}
             maxValue={12}
+            upDownButtonsBackgroundColor={"gray"}
           />
           <Text> 시 </Text>
 
           <NumericInput
+            style={styles.minute}
             type="up-down"
             onChange={minChange => this.setState({ minute: minChange })}
             step={5}
             minValue={0}
             maxValue={59}
+            upDownButtonsBackgroundColor={"gray"}
           />
           <Text> 분 </Text>
-        </Content>
+        </Container>
+
         <Footer>
           <FooterTab>
             <Button
@@ -173,7 +224,7 @@ export default class Sendcomplete extends Component {
                 ]);
               }}
             >
-              <Text>SEND</Text>
+              <Text style={styles.btntext}>SEND</Text>
             </Button>
           </FooterTab>
         </Footer>

@@ -50,6 +50,11 @@ const styles = StyleSheet.create({
   btn: {
     flex: 0.3,
     marginBottom: "3.5%"
+  },
+  botbtntext: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 14
   }
 });
 
@@ -235,7 +240,7 @@ export default class Mypage extends Component {
                 navigation.goBack();
               }}
             >
-              <Text style={{ fontSize: 15 }}>메인화면으로 이동</Text>
+              <Text style={styles.botbtntext}>메인화면으로 이동</Text>
             </Button>
           </FooterTab>
         </Footer>
