@@ -8,10 +8,10 @@ import {
   Button,
   Icon
 } from "native-base";
-import { StyleSheet, AsyncStorage } from "react-native";
+import { StyleSheet, AsyncStorage, Image, View } from "react-native";
 import AwesomeAlert from "react-native-awesome-alerts";
 import { SERVER_API } from "../api/API";
-//const ServerURL;
+//import Symbol from '../logo/owlpost-symbol.png'
 
 const styles = StyleSheet.create({
   toplogo: {
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     textAlign: "center",
-    marginTop: "50%"
+    marginTop: "-10%"
   },
   subtext: {
     marginTop: "3%",
@@ -44,6 +44,11 @@ const styles = StyleSheet.create({
     marginTop: "3%",
     textAlign: "center",
     fontSize: 17
+  },
+  btntext: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 14
   }
 });
 
@@ -158,7 +163,7 @@ export default class Home extends Component {
         }
       })
       .catch(err => console.log(err));
-    console.log("token이 바뀌니??", token);
+    //console.log("token이 바뀌니??", token);
     setInterval(() => {
       fetch(AllUserInfo, {
         headers: {
@@ -301,6 +306,17 @@ export default class Home extends Component {
           <Text style={styles.logotext}>owlPost</Text>
         </Header>
 
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <Image
+            style={{
+              width: "50%",
+              height: "50%",
+              resizeMode: "contain"
+            }}
+            source={require("../logo/owlpost-symbol.png")}
+          />
+        </View>
+
         <Container>
           {matchComplete === false ? (
             <Text style={styles.maintext}>{centerText}</Text>
@@ -347,7 +363,7 @@ export default class Home extends Component {
                 navigation.navigate("Postbox");
               }}
             >
-              <Text>편지함</Text>
+              <Text style={styles.btntext}>편지함</Text>
             </Button>
             <Button
               style={styles.footer}
@@ -386,7 +402,7 @@ export default class Home extends Component {
                 }
               }}
             >
-              <Text>{matchStatus}</Text>
+              <Text style={styles.btntext}>{matchStatus}</Text>
             </Button>
             <Button
               style={styles.footer}
@@ -394,7 +410,7 @@ export default class Home extends Component {
                 navigation.navigate("Mypage");
               }}
             >
-              <Text>마이페이지</Text>
+              <Text style={styles.btntext}>마이페이지</Text>
             </Button>
           </FooterTab>
         </Footer>

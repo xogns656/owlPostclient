@@ -38,6 +38,11 @@ const styles = StyleSheet.create({
   },
   footer: {
     backgroundColor: "black"
+  },
+  btntext: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 14
   }
 });
 export default class Send extends Component {
@@ -132,7 +137,7 @@ export default class Send extends Component {
                 navigation.navigate("Home");
               }}
             >
-              <Text>Main</Text>
+              <Text style={styles.btntext}>Main</Text>
             </Button>
             <Button
               style={styles.footer}
@@ -140,7 +145,7 @@ export default class Send extends Component {
                 this.showAlert();
               }}
             >
-              <Text>Send</Text>
+              <Text style={styles.btntext}>Send</Text>
             </Button>
           </FooterTab>
         </Footer>
