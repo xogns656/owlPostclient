@@ -296,7 +296,7 @@ export default class Signup extends Component {
     function truthy(currVal) {
       return currVal === true;
     }
-    console.log(statusPasswordMatch);
+    //console.log(statusPasswordMatch);
     //console.log(status.every(truthy));
     if (status.every(truthy)) {
       fetch(SERVER_API + `/user/signup`, {
@@ -395,7 +395,7 @@ export default class Signup extends Component {
                 onChange={e => {
                   const password = e.nativeEvent.text;
                   const ComparePassword = this.state.stateComparePassword;
-                  console.log(password);
+                  //console.log(password);
                   if (password === ComparePassword) {
                     this.setState({
                       statusPasswordMatch: true,
@@ -417,7 +417,7 @@ export default class Signup extends Component {
                 onChange={e => {
                   const ComparePassword = e.nativeEvent.text;
                   const password = this.state.statePassword;
-                  console.log(password, ComparePassword);
+                  //console.log(password, ComparePassword);
                   if (password === ComparePassword) {
                     this.setState({
                       statusPasswordMatch: true,

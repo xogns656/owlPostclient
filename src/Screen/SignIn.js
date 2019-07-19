@@ -7,18 +7,11 @@ import {
   Input,
   Button,
   Footer,
-  FooterTab,
-  Icon
+  FooterTab
 } from "native-base";
 import { StyleSheet, Alert, AsyncStorage } from "react-native";
 import { SERVER_API } from "../api/API";
 
-// if (statuscode === 200) {
-//   //이때 토큰을 받아서 저장한다.
-//   this.props.navigation.navigate("Home"); // ==> 홈 화면 으로
-// } else if (statuscode === 201) {
-//   Alert.alert("등록되지 않은 정보입니다.");
-//}
 export default class SignIn extends Component {
   logInGetRequest() {
     const email = this.email._root._lastNativeText;
@@ -47,7 +40,7 @@ export default class SignIn extends Component {
         })
         .then(async json => {
           //Asyncstorage에 토큰 저장
-          console.log(json.token);
+          //console.log(json.token);
           AsyncStorage.setItem("token", json.token);
           //홈화면으로 이동
           navigation.navigate("Home");

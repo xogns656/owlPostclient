@@ -6,16 +6,12 @@ import {
   Footer,
   FooterTab,
   Button,
-  Icon,
   Body,
-  ListItem,
   List
 } from "native-base";
 
 import { StyleSheet, Alert, AsyncStorage } from "react-native";
 import { SERVER_API } from "../api/API";
-
-import AwesomeAlert from "react-native-awesome-alerts";
 
 const styles = StyleSheet.create({
   toplogo: {
@@ -68,9 +64,9 @@ export default class Mypage extends Component {
     };
   }
   async componentDidMount() {
-    //토큰 제출
     const token = await AsyncStorage.getItem("token");
     fetch(SERVER_API + "/check/mypage", {
+      //토큰 제출
       headers: { "x-access-token": token }
     })
       .then(res => {
@@ -81,7 +77,7 @@ export default class Mypage extends Component {
         }
       })
       .then(json => {
-        console.log(json);
+        //console.log(json);
         this.setState({
           nickname: json.nickname,
           partner_nickname: json.partner_nickname,
@@ -209,8 +205,8 @@ export default class Mypage extends Component {
                 Alert.alert("", "로그아웃하시겠습니까?", [
                   {
                     text: "네",
-                    onPress: () => {
-                      AsyncStorage.clear();
+                    onPress: async () => {
+                      await AsyncStorage.clear();
                       navigation.navigate("SignIn");
                     }
                   },
