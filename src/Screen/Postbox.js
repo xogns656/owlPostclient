@@ -66,11 +66,8 @@ export default class Postbox extends Component {
 
   async componentDidMount() {
     let PostURL = `${SERVER_API}/check/postbox`; // 겟인데 한 5분 간격?
-    const token = await AsyncStorage.getItem("token");
-    this.setState({
-      token: token
-    });
-    console.log(token);
+    let token = await AsyncStorage.getItem("token");
+
     fetch(PostURL, {
       headers: {
         "x-access-token": token
@@ -125,13 +122,13 @@ export default class Postbox extends Component {
   }
 
   // 실행이 안되네 바로 .. 패치요청 비동기?에러처리?
-  afterDeleteReset = () => {
+  afterDeleteReset = async () => {
     //console.log("실행되니?????????????");
     let PostURL = `${SERVER_API}/check/postbox`; // 삭제할 때 다시 겟
-
+    let token = await AsyncStorage.getItem("token");
     fetch(PostURL, {
       headers: {
-        "x-access-token": this.state.token
+        "x-access-token": token
       }
     })
       .then(res => res.json())
@@ -195,7 +192,8 @@ export default class Postbox extends Component {
                   </Text>
 
                   <Button
-                    onPress={() => {
+                    onPress={async () => {
+                      let token = await AsyncStorage.getItem("token");
                       //console.log(this.state.token);
                       fetch(`${SERVER_API}/check/deleteletter`, {
                         method: "DELETE",
@@ -203,7 +201,7 @@ export default class Postbox extends Component {
                           selectmessage: [{ messages: ele.messages }]
                         }),
                         headers: {
-                          "x-access-token": this.state.token,
+                          "x-access-token": token,
                           "Content-Type": "application/json"
                         }
                       })
