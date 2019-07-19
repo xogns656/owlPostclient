@@ -3,10 +3,10 @@
   "header": {
     "event": "Allocation failed - JavaScript heap out of memory",
     "trigger": "FatalError",
-    "filename": "report.20190719.101059.6574.0.001.json",
-    "dumpEventTime": "2019-07-19T10:10:59Z",
-    "dumpEventTimeStamp": "1563498659060",
-    "processId": 6574,
+    "filename": "report.20190719.122422.23870.0.001.json",
+    "dumpEventTime": "2019-07-19T12:24:22Z",
+    "dumpEventTimeStamp": "1563506662502",
+    "processId": 23870,
     "cwd": "/home/kim/owlPost-client",
     "commandLine": [
       "node",
@@ -101,10 +101,10 @@
     }
   ],
   "javascriptHeap": {
-    "totalMemory": 2161164288,
-    "totalCommittedMemory": 2149739376,
-    "usedMemory": 2116875664,
-    "availableMemory": 55766384,
+    "totalMemory": 2160115712,
+    "totalCommittedMemory": 2155518200,
+    "usedMemory": 2107423224,
+    "availableMemory": 53018272,
     "memoryLimit": 2197815296,
     "heapSpaces": {
       "read_only_space": {
@@ -115,31 +115,31 @@
         "available": 492264
       },
       "new_space": {
-        "memorySize": 16777216,
-        "committedMemory": 8393440,
-        "capacity": 8383616,
-        "used": 144280,
-        "available": 8239336
+        "memorySize": 14680064,
+        "committedMemory": 12047296,
+        "capacity": 7335664,
+        "used": 367056,
+        "available": 6968608
       },
       "old_space": {
-        "memorySize": 2130305024,
-        "committedMemory": 2128343272,
-        "capacity": 2109584808,
-        "used": 2107584648,
-        "available": 2000160
+        "memorySize": 2127683584,
+        "committedMemory": 2126575640,
+        "capacity": 2096924544,
+        "used": 2096402392,
+        "available": 522152
       },
       "code_space": {
         "memorySize": 1736704,
-        "committedMemory": 1590944,
-        "capacity": 1317920,
-        "used": 1317920,
+        "committedMemory": 1585920,
+        "capacity": 1365280,
+        "used": 1365280,
         "available": 0
       },
       "map_space": {
-        "memorySize": 5771264,
-        "committedMemory": 5329904,
-        "capacity": 1838400,
-        "used": 1838400,
+        "memorySize": 9441280,
+        "committedMemory": 9227528,
+        "capacity": 3298080,
+        "used": 3298080,
         "available": 0
       },
       "large_object_space": {
@@ -159,32 +159,32 @@
       "new_large_object_space": {
         "memorySize": 0,
         "committedMemory": 0,
-        "capacity": 8383616,
+        "capacity": 7335664,
         "used": 0,
-        "available": 8383616
+        "available": 7335664
       }
     }
   },
   "resourceUsage": {
-    "userCpuSeconds": 155.75,
-    "kernelCpuSeconds": 4.99609,
-    "cpuConsumptionPercent": 2.94892,
-    "maxRss": 2256801792,
+    "userCpuSeconds": 176.189,
+    "kernelCpuSeconds": 7.37787,
+    "cpuConsumptionPercent": 6.22895,
+    "maxRss": 2281775104,
     "pageFaults": {
-      "IORequired": 13,
-      "IONotRequired": 1471273
+      "IORequired": 0,
+      "IONotRequired": 3353234
     },
     "fsActivity": {
-      "reads": 2216,
-      "writes": 80
+      "reads": 0,
+      "writes": 88
     }
   },
   "uvthreadResourceUsage": {
-    "userCpuSeconds": 78.8535,
-    "kernelCpuSeconds": 2.57222,
-    "cpuConsumptionPercent": 1.49378,
+    "userCpuSeconds": 96.8686,
+    "kernelCpuSeconds": 4.41511,
+    "cpuConsumptionPercent": 3.43684,
     "fsActivity": {
-      "reads": 2216,
+      "reads": 0,
       "writes": 0
     }
   },
@@ -307,7 +307,7 @@
     "npm_config_prefer_offline": "",
     "NODE": "/home/kim/.nvm/versions/node/v12.2.0/bin/node",
     "XDG_MENU_PREFIX": "gnome-",
-    "GNOME_TERMINAL_SCREEN": "/org/gnome/Terminal/screen/2c2b1494_c444_4c69_be4e_16ebc0aab873",
+    "GNOME_TERMINAL_SCREEN": "/org/gnome/Terminal/screen/38d2b73f_e363_4b97_806e_3d24f41f8aaf",
     "XDG_RUNTIME_DIR": "/run/user/1000",
     "npm_package_devDependencies_eslint_plugin_jsx_a11y": "^6.2.3",
     "npm_config_color": "true",
@@ -333,7 +333,7 @@
     "GNOME_TERMINAL_SERVICE": ":1.72",
     "XAUTHORITY": "/run/user/1000/gdm/Xauthority",
     "npm_package_main": "node_modules/expo/AppEntry.js",
-    "npm_package_gitHead": "9de24f00d29fb3b7c043728eff43f27bc9d9d4cf",
+    "npm_package_gitHead": "6b2893e2a959c5a8fe3207c4b466ce8a3109f595",
     "npm_config_fetch_retry_maxtimeout": "60000",
     "npm_config_loglevel": "notice",
     "npm_config_logs_max": "10",

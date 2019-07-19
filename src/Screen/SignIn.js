@@ -78,7 +78,11 @@ export default class SignIn extends Component {
               secureTextEntry={true}
             />
           </Content>
-          <Button block onPress={this.logInGetRequest.bind(this)}>
+          <Button
+            block
+            style={{ backgroundColor: "black" }}
+            onPress={this.logInGetRequest.bind(this)}
+          >
             <Text>Sign In</Text>
           </Button>
         </Content>
