@@ -44,6 +44,11 @@ const styles = StyleSheet.create({
 
   posttime: {
     marginRight: "20%"
+  },
+  btntext: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 14
   }
 });
 export default class Postbox extends Component {
@@ -87,11 +92,6 @@ export default class Postbox extends Component {
             letters: res
           });
         }
-
-        console.log(res);
-
-        console.log(res);
-        console.log("여기 맞지???state ====>", this.state.letters);
       })
       .catch(err => console.log(err));
 
@@ -170,12 +170,7 @@ export default class Postbox extends Component {
                 }}
               >
                 <Left>
-                  <Thumbnail
-                    source={{
-                      uri:
-                        "https://pbs.twimg.com/profile_images/2327813980/f0g6arshemdx1xxarjx5_400x400.jpeg"
-                    }}
-                  />
+                  <Thumbnail source={require("../logo/owlpost-symbol.png")} />
                 </Left>
                 <Body>
                   <Text>{ele.from}</Text>
@@ -192,6 +187,7 @@ export default class Postbox extends Component {
                   </Text>
 
                   <Button
+                    style={styles.footer}
                     onPress={async () => {
                       let token = await AsyncStorage.getItem("token");
                       //console.log(this.state.token);
@@ -240,7 +236,7 @@ export default class Postbox extends Component {
                 navigation.navigate("Home");
               }}
             >
-              <Text>Main</Text>
+              <Text style={styles.btntext}>Main</Text>
             </Button>
           </FooterTab>
         </Footer>
