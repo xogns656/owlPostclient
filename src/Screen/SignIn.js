@@ -41,7 +41,7 @@ export default class SignIn extends Component {
         .then(async json => {
           //Asyncstorage에 토큰 저장
           //console.log(json.token);
-          AsyncStorage.setItem("token", json.token);
+          await AsyncStorage.setItem("token", json.token);
           //홈화면으로 이동
           navigation.navigate("Home");
         })

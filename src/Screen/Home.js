@@ -198,7 +198,8 @@ export default class Home extends Component {
               res.user.letterSendtime !== new Date().toString().slice(4, 15)
             ) {
               this.setState({
-                sendStatus: true
+                sendStatus: true,
+                partner: res.user.partner_nickname
               });
               if (this.state.sendStatus) {
                 //console.log("니가 뛰냐??");
@@ -391,7 +392,7 @@ export default class Home extends Component {
                         console.log(res);
                       })
                       .catch(err => console.log(err));
-                  }, 10000);
+                  }, 1000);
                 } else {
                   if (matchStatus === "편지 쓰기") {
                     navigation.navigate("Send", {

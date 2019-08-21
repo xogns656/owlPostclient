@@ -319,9 +319,9 @@ export default class Signup extends Component {
                     //HOME화면으로 이동 , 토큰 저장
                     return res.json();
                   })
-                  .then(json => {
-                    AsyncStorage.setItem("token", json.token);
-                    navigation.navigate("Home");
+                  .then(async json => {
+                    await AsyncStorage.setItem("token", json.token);
+                    navigation.navigate("SignIn");
                   })
                   .catch(err => {
                     Alert.alert("", "회원가입완료 메인화면으로 이동합니다.");
