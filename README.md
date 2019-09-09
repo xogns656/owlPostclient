@@ -4,21 +4,29 @@
 
 # UI Video
 
-[![Owlpost UI](http://img.youtube.com/vi/MPXAfuchWSQ/0.jpg)](https://youtu.be/MPXAfuchWSQ?t=0s)
+<iframe width="640" height="360" src="https://www.youtube.com/embed/MPXAfuchWSQ?t=0s" frameborder="0" gesture="media" allowfullscreen=""></iframe>
 
 # Skill
 
 - React-native
 
-# Skill details
-
-- React navigation
--
-
 # Start app
+
+After this commend, you will see **QR code** and **link** in your terminal.
 
 ```
 expo start
 ```
 
-After this commend, you will see QR code in your terminal.
+### USE QR code
+
+Download **expo application** in your device  
+Excute expo app, find **camera** for _QR code Scan_  
+Scan QR code , **OwlPost app** excute in your device.
+
+### USE Link
+
+you must Download _Android Studio_, before this tutorial  
+If you download _Android Studio_ , you will see **Expo simulating page** after click terminal expo link  
+Find **Run on Andriod device/emulator** left side in simulating page and click  
+Then, owlPost app excute in Emulator
