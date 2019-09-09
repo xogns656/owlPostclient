@@ -2,13 +2,11 @@
 
 익명의 상대와 하루에 한 통 편지를 주고받을 수 있는 서비스
 
-# UI Video
+# App playing Video
 
-[!(owlPost Video)[]]()
+[![owlPost UI](http://img.youtube.com/vi/MPXAfuchWSQ/0.jpg)](https://youtu.be/MPXAfuchWSQ?t=0s)
 
-<iframe width="640" height="360" allowfullscreen></iframe>
-
-# Skill
+# Front-end Skill
 
 - React-native
 
@@ -32,3 +30,11 @@ you must Download _Android Studio_, before this tutorial
 If you download _Android Studio_ , you will see **Expo simulating page** after click terminal expo link  
 Find **Run on Andriod device/emulator** left side in simulating page and click  
 Then, owlPost app excute in Emulator
+
+# Tech blog
+
+[owlPost link](https://miticoncrete.tistory.com/35)
+
+# Contact
+
+xogns98@gmail.com
